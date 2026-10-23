@@ -75,3 +75,13 @@
   footer { gap: 12px; flex-wrap: wrap; }
   footer p { display: none; }
 }
+.effects-panel { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); border:1px solid var(--border); border-radius:12px; margin-top:18px; background:var(--surface); }
+.effect-control { padding:18px 20px; min-width:0; }
+.effect-control + .effect-control { border-left:1px solid var(--border); }
+.effect-control .slider-label { margin-top:0; gap:8px; }
+.effect-control p { font-size:10px; line-height:1.6; color:var(--text-muted); margin:12px 0 0; }
+.correction-control .switch-row { border:0; padding:0; margin:0; gap:10px; }
+.correction-control .switch { flex-shrink:0; }
+.correction-control .switch-row small { line-height:1.5; }
+@media(max-width:1000px) { .effects-panel { grid-template-columns:repeat(2,minmax(0,1fr)); } .effect-control:nth-child(3) { border-left:0; } .effect-control:nth-child(n+3) { border-top:1px solid var(--border); } }
+@media(max-width:500px) { .effects-panel { grid-template-columns:1fr; } .effect-control + .effect-control { border-left:0; border-top:1px solid var(--border); } }
