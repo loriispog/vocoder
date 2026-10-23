@@ -1,0 +1,77 @@
+/* Shared palette keeps every surface, control and label in the selected theme. */
+:root {
+  color-scheme: dark;
+  --background: #101210;
+  --surface: #1b2018;
+  --surface-raised: #273024;
+  --border: #3a4432;
+  --text-muted: #94a18a;
+  --text-secondary: #bac6ae;
+  --text: #e9ebe4;
+  --accent: #c0df9b;
+  --on-accent: #24301b;
+}
+:root[data-theme="midnight"] {
+  --background: #0d1320;
+  --surface: #151f30;
+  --surface-raised: #202e43;
+  --border: #344a64;
+  --text-muted: #92a7c1;
+  --text-secondary: #bbcee4;
+  --text: #e8f1ff;
+  --accent: #8acaff;
+  --on-accent: #10283d;
+}
+:root[data-theme="amethyst"] {
+  --background: #15101e;
+  --surface: #21192c;
+  --surface-raised: #30243f;
+  --border: #4c3b60;
+  --text-muted: #b09bc4;
+  --text-secondary: #d1bee3;
+  --text: #f1e9fb;
+  --accent: #d2adff;
+  --on-accent: #2c1844;
+}
+:root[data-theme="ember"] {
+  --background: #19110e;
+  --surface: #271c17;
+  --surface-raised: #39281f;
+  --border: #584033;
+  --text-muted: #bba18e;
+  --text-secondary: #dbc3af;
+  --text: #fbefe3;
+  --accent: #ffbd86;
+  --on-accent: #3a2111;
+}
+:root[data-theme="daylight"] {
+  color-scheme: light;
+  --background: #f5f4ef;
+  --surface: #ffffff;
+  --surface-raised: #eaece4;
+  --border: #bdc5b4;
+  --text-muted: #56644c;
+  --text-secondary: #3e4e35;
+  --text: #1c2917;
+  --accent: #426d30;
+  --on-accent: #ffffff;
+}
+.header-right { gap: 18px; }
+.privacy-label { display: inline-flex; align-items: center; gap: 7px; }
+.theme-picker { display: flex; align-items: center; gap: 8px; color: var(--text-secondary); font-size: 10px; letter-spacing: 0; }
+.theme-picker select { margin: 0; padding: 8px 24px 8px 10px; width: 118px; font-size: 11px; }
+.github-link { display: inline-flex; align-items: center; gap: 7px; padding: 8px 0; color: var(--text-secondary); font-size: 12px; letter-spacing: 0; }
+.github-link svg { width: 17px; height: 17px; }
+.github-link:hover, .footer-github:hover { color: var(--accent); }
+.help { margin-left: 0; white-space: nowrap; }
+.footer-github { font-size: 10px; letter-spacing: 0; color: var(--text-secondary); }
+@media (max-width: 1100px) { .privacy-label { display: none; } }
+@media (max-width: 650px) {
+  header { height: auto; min-height: 76px; padding: 16px 18px; gap: 12px; flex-wrap: wrap; }
+  .header-right { gap: 14px; font-size: 10px; }
+  .theme-picker > span, .help { display: none; }
+  .theme-picker select { width: 105px; }
+  .github-link { font-size: 11px; }
+  footer { gap: 12px; flex-wrap: wrap; }
+  footer p { display: none; }
+}

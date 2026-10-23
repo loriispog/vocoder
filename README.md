@@ -16,6 +16,10 @@ npm run dev -- --port 5173 --strictPort
 
 Allow microphone and camera access when prompted. Choose root, scale, voices and intervals. Sing a sustained monophonic note, then open your hand in view. Finger extension controls wet volume; dry voice remains audible. If camera access or model loading fails, microphone processing stays active and manual openness becomes available. Stop releases both device streams and closes the audio context. Cancellation also releases device streams that resolve after startup was cancelled.
 
+## Appearance
+
+Use the Theme menu in the header to choose Forest, Midnight, Amethyst, Ember, or Daylight. Your choice is remembered on this browser when local storage is available. Header and footer GitHub links open the source repository in a new tab.
+
 ## Checks
 
 ```sh

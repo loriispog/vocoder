@@ -10,7 +10,22 @@ const browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH||'
 try{
  const page=await browser.newPage({viewport:{width:1440,height:1180}});const errors=[],consoleErrors=[];page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error'&&m.text()!=='INFO: Created TensorFlow Lite XNNPACK delegate for CPU.')consoleErrors.push(m.text());});
  await page.addInitScript(()=>{const Original=window.AudioWorkletNode;window.AudioWorkletNode=class extends Original{constructor(...args){super(...args);window.testWorklet=this;window.testAudio=args[0];window.processorFailed=false;this.addEventListener('processorerror',()=>window.processorFailed=true);}};});
- await page.goto(base);await page.getByRole('heading',{name:/A choir/}).waitFor();await page.screenshot({path:'.test-results/desktop.png',fullPage:true});
+ await page.goto(base);await page.getByRole('heading',{name:/A choir/}).waitFor();
+ const backgrounds=new Set();
+ for(const theme of ['forest','midnight','amethyst','ember','daylight']){
+  await page.getByRole('combobox',{name:'Color theme'}).selectOption(theme);
+  assert.equal(await page.locator('html').getAttribute('data-theme'),theme);
+  backgrounds.add(await page.evaluate(()=>getComputedStyle(document.documentElement).backgroundColor));
+  await page.setViewportSize({width:390,height:844});
+  assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),`No mobile overflow in ${theme}`);
+ }
+ assert.equal(backgrounds.size,5,'Themes must produce distinct palettes');
+ await page.reload();assert.equal(await page.locator('html').getAttribute('data-theme'),'daylight');assert.equal(await page.locator('#theme').inputValue(),'daylight');
+ const github=page.getByRole('link',{name:'GitHub',exact:true});assert.equal(await github.getAttribute('href'),'https://github.com/loriispog/vocoder');assert.equal(await github.getAttribute('target'),'_blank');
+ await page.getByRole('combobox',{name:'Color theme'}).selectOption('amethyst');await page.screenshot({path:'.test-results/theme-mobile.png',fullPage:true});
+ await page.setViewportSize({width:1440,height:1180});await page.screenshot({path:'.test-results/theme-desktop.png',fullPage:true});
+ await page.getByRole('combobox',{name:'Color theme'}).selectOption('forest');console.log('Five distinct themes, saved preference, GitHub link, and mobile layout verified.');
+await page.screenshot({path:'.test-results/desktop.png',fullPage:true});
  await page.getByRole('button',{name:'4 VOICES',exact:true}).click();assert.equal(await page.locator('#intervals select').count(),4);
  await page.locator('#scale').selectOption('minor');await page.locator('#root').selectOption('2');
  await page.locator('#start').click();await page.waitForFunction(()=>document.querySelector('#sessionState').textContent==='INSTRUMENT LIVE');
