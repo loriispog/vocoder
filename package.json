@@ -1,0 +1,25 @@
+{
+  "name": "halo-vocal-instrument",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "vite build",
+    "preview": "vite preview --host 0.0.0.0",
+    "test": "node --test tests/*.test.js",
+    "test:browser": "node tests/browser.mjs",
+    "setup": "node scripts/setup-assets.mjs",
+    "postinstall": "node scripts/copy-wasm.mjs",
+    "test:gestures": "node tests/gestures.mjs"
+  },
+  "dependencies": {
+    "@fontsource/dm-sans": "^5.2.8",
+    "@fontsource/manrope": "^5.2.8",
+    "@mediapipe/tasks-vision": "0.10.32",
+    "vite": "7.3.1"
+  },
+  "devDependencies": {
+    "playwright": "1.58.2"
+  }
+}
