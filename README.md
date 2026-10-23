@@ -38,14 +38,3 @@ The worklet uses a 45 ms variable-delay window with two complementary Hann grain
 The dry path bypasses pitch processing. The wet path has about 3–48 ms of algorithmic delay, plus hardware/browser buffering. The displayed device-buffer time is **not** total measured round-trip latency. Initial pitch acquisition and changes can take roughly 85 ms plus smoothing. Room ambience is a short stereo convolution tail; a compressor limits large peaks. Hand tracking runs at most about 22 Hz on the main thread, while audio runs on the audio thread.
 
 This granular implementation can produce grain/phase artifacts and changes vowel formants, especially at wide intervals. It is not a formant-preserving studio harmonizer. Naturalness, underruns on slower devices, actual acoustic round-trip latency, real vocal quality and physical webcam gestures require hardware testing. It expects a solo monophonic input, approximately 75–1000 Hz, with a quiet background. Browser/device DSP may still affect capture despite requested constraints.
-
-## Current validation
-
-- The official version-1 hand model downloaded successfully after internet access was enabled. The setup script's incorrect ZIP-header assumption was corrected; the model is now validated with a pinned SHA-256, cross-checked against Google's published MD5 metadata. Archive integrity was also checked. TLS verification stayed enabled.
-- Setup succeeded twice, confirming reuse of the verified local model.
-- All 11 DSP tests and the production build passed.
-- Chromium simulated-media tests passed against the production build with successful MediaPipe initialization, microphone pitch display, measured wet audio output/fade, startup cancellation, permission errors and stop/restart. No uncaught exceptions or unexpected console errors.
-- Real MediaPipe inference on official open-hand/fist image fixtures verified hand tracking, drawn landmarks, gesture mapping and loss-of-hand fade. These fixtures are passed as video frames through the app, not mocked landmark results.
-- No physical microphone/webcam, listening-quality, or end-to-end latency test has been performed. See the audio limitations above.
-
-The repository was empty when inspected, so there was no pre-existing Start button to repair. Startup was implemented with visible errors and separate microphone/camera initialization instead.
